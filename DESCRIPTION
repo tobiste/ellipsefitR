@@ -17,3 +17,5 @@ LazyData: true
 RoxygenNote: 7.3.3
 Depends: 
     R (>= 3.5)
+URL: https://github.com/tobiste/ellipsefitR
+BugReports: https://github.com/tobiste/ellipsefitR/issues
