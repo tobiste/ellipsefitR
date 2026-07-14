@@ -10,20 +10,14 @@
 #' @importFrom jpeg readJPEG
 #' @importFrom png readPNG
 plotImage <- function(file,
-                      asp = 1){
-
+                      asp = 1) {
   ext <- tools::file_ext(file)
 
-  if(tolower(ext) %in% c("jpg", "jpeg")){
-
+  if (tolower(ext) %in% c("jpg", "jpeg")) {
     img <- jpeg::readJPEG(file)
-
-  } else if(tolower(ext) == "png"){
-
+  } else if (tolower(ext) == "png") {
     img <- png::readPNG(file)
-
   } else {
-
     stop("Only jpeg and png supported.")
   }
 
@@ -60,8 +54,7 @@ plotImage <- function(file,
 #' @param nmin minimum number of points
 #'
 #' @export
-locatorEllipseImage <- function(file, nmin = 5){
-
+locatorEllipseImage <- function(file, nmin = 5) {
   img <- plotImage(file)
 
   message(
@@ -70,13 +63,15 @@ locatorEllipseImage <- function(file, nmin = 5){
 
   pts <- locator()
 
-  if(is.null(pts))
+  if (is.null(pts)) {
     stop("No points selected.")
+  }
 
   dat <- cbind(pts$x, pts$y)
 
-  if(nrow(dat) < nmin)
+  if (nrow(dat) < nmin) {
     stop("Need at least ", nmin, " points.")
+  }
 
   fit <- fitEllipse(dat)
 
@@ -85,20 +80,23 @@ locatorEllipseImage <- function(file, nmin = 5){
 
   ## draw selected points
   points(dat,
-         pch = 16,
-         col = "yellow")
+    pch = 16,
+    col = "yellow"
+  )
 
   ## draw ellipse
   lines(predict(fit),
-        col = "red",
-        lwd = 2)
+    col = "red",
+    lwd = 2
+  )
 
   ## draw centre
   points(fit$center[1],
-         fit$center[2],
-         pch = 3,
-         cex = 2,
-         lwd = 2)
+    fit$center[2],
+    pch = 3,
+    cex = 2,
+    lwd = 2
+  )
 
   fit$data <- dat
 
@@ -449,15 +447,14 @@ perspectiveCorrect <- function(file,
 
 #' @export
 plot.geoImage <- function(x,
-                          ...){
-
+                          ...) {
   plot(
     NA,
-    xlim=c(0,x$width),
-    ylim=c(x$height,0),
-    asp=1,
-    xlab="pixel x",
-    ylab="pixel y",
+    xlim = c(0, x$width),
+    ylim = c(x$height, 0),
+    asp = 1,
+    xlab = "pixel x",
+    ylab = "pixel y",
     ...
   )
 

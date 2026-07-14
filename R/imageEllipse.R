@@ -1,11 +1,7 @@
-.ensureImageDevice <- function(){
-
-  if(length(dev.list()) == 0){
-
+.ensureImageDevice <- function() {
+  if (length(dev.list()) == 0) {
     .openDevice()
-
   }
-
 }
 
 
@@ -17,9 +13,8 @@
 #' @return ellipse_collection object
 #'
 #' @export
-imageEllipse <- function(x, nmin = 5){
-
-  if(!inherits(x, "geoImage")){
+imageEllipse <- function(x, nmin = 5) {
+  if (!inherits(x, "geoImage")) {
     stop("x must be a geoImage object.")
   }
 
@@ -28,17 +23,14 @@ imageEllipse <- function(x, nmin = 5){
   result <- .new_ellipse_collection(x)
 
   repeat {
-
     plot(x)
 
     # redraw existing ellipses
-    if(length(result$ellipses) > 0){
-
-      for(i in seq_along(result$ellipses)){
-
+    if (length(result$ellipses) > 0) {
+      for (i in seq_along(result$ellipses)) {
         e <- result$ellipses[[i]]
 
-        if(!inherits(e, "ellipse_fit")){
+        if (!inherits(e, "ellipse_fit")) {
           warning(
             "Skipping invalid ellipse object at index ",
             i
@@ -71,7 +63,7 @@ imageEllipse <- function(x, nmin = 5){
 
     message(
       "Select points for ellipse ",
-      length(result$ellipses)+1,
+      length(result$ellipses) + 1,
       ". Minimum points: ",
       nmin
     )
@@ -81,9 +73,8 @@ imageEllipse <- function(x, nmin = 5){
 
 
     # user stopped input
-    if(is.null(pts) ||
-       length(pts$x)==0){
-
+    if (is.null(pts) ||
+      length(pts$x) == 0) {
       message(
         "Finished digitizing."
       )
@@ -100,8 +91,7 @@ imageEllipse <- function(x, nmin = 5){
 
     # check number of points
 
-    if(nrow(coords) < nmin){
-
+    if (nrow(coords) < nmin) {
       message(
         "Ellipse ignored: only ",
         nrow(coords),
@@ -117,11 +107,8 @@ imageEllipse <- function(x, nmin = 5){
     # try fitting ellipse safely
 
     fit <- tryCatch(
-
       fitEllipse(coords),
-
-      error = function(e){
-
+      error = function(e) {
         message(
           "Ellipse fitting failed: ",
           e$message
@@ -134,8 +121,7 @@ imageEllipse <- function(x, nmin = 5){
 
     # fitting failed
 
-    if(is.null(fit)){
-
+    if (is.null(fit)) {
       next
     }
 
@@ -147,7 +133,7 @@ imageEllipse <- function(x, nmin = 5){
     fit$image <- x
 
 
-    result$ellipses[[length(result$ellipses)+1]] <- fit
+    result$ellipses[[length(result$ellipses) + 1]] <- fit
 
 
     message(
@@ -161,11 +147,9 @@ imageEllipse <- function(x, nmin = 5){
     )
 
 
-    if(tolower(answer)!="y"){
-
+    if (tolower(answer) != "y") {
       break
     }
-
   }
 
 
@@ -173,8 +157,7 @@ imageEllipse <- function(x, nmin = 5){
 
   plot(x)
 
-  for(i in seq_along(result$ellipses)){
-
+  for (i in seq_along(result$ellipses)) {
     e <- result$ellipses[[i]]
 
     lines(
