@@ -649,16 +649,3 @@ locatorEllipse <- function(nmin=5, ...){
 
   invisible(fit)
 }
-
-
-
-#
-# plot(
-#   1,
-#   type="n",
-#   xlim=c(0,10),
-#   ylim=c(0,10),
-#   asp=1
-# )
-#
-# fit <- locatorEllipse()

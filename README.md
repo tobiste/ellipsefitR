@@ -7,7 +7,7 @@
 
 <!-- badges: end -->
 
-`ellipsefit` is an R package for interactive digitization and
+`ellipsefitR` is an R package for interactive digitization and
 quantitative analysis of ellipses from images. It was developed
 primarily for geological applications such as strain analysis, clast
 shape analysis, porphyroclasts, reduction spots, ooids, fossils, and
